@@ -1,10 +1,14 @@
-import React from 'react'
+import axios from '../../utils/axios';
+import React, { useEffect } from 'react'
 
 const Sidenav = () => {
+
+ 
+
   return (
     <div className='w-[20%] h-full border-r-2 border-zinc-400 p-10'>
         <h1 className='text-2xl text-white font-bold'>
-        <i class=" text-[#6556CD] ri-tv-fill mr-2"></i>
+        <i className=" text-[#6556CD] ri-tv-fill mr-2"></i>
         <span>StreamX</span> 
         </h1>
 
@@ -13,19 +17,19 @@ const Sidenav = () => {
             New Feeds
             </h1>
         <lin className='hover:bg-[#6556CD] hover:text-white duration-300 rounded-lg p-5'>
-        <i class=" ri-fire-fill"></i> Trending
+        <i className=" ri-fire-fill"></i> Trending
             </lin>
         <lin className='hover:bg-[#6556CD] hover:text-white duration-300 rounded-lg p-5'>
-        <i class="mr-2 ri-sparkling-fill"></i> Popular
+        <i className="mr-2 ri-sparkling-fill"></i> Popular
             </lin>
         <lin className='hover:bg-[#6556CD] hover:text-white duration-300 rounded-lg p-5'>
-        <i class="mr-2 ri-movie-2-fill"></i>Movies
+        <i className="mr-2 ri-movie-2-fill"></i>Movies
         </lin>
         <lin className='hover:bg-[#6556CD] hover:text-white duration-300 rounded-lg p-5'>
-        <i class="mr-2 ri-tv-2-fill"></i>Tv shows
+        <i className="mr-2 ri-tv-2-fill"></i>Tv shows
         </lin>
         <lin className='hover:bg-[#6556CD] hover:text-white duration-300 rounded-lg p-5'>
-        <i class="mr-2 ri-team-fill"></i>People
+        <i className="mr-2 ri-team-fill"></i>People
         </lin>
         </nav>
         <hr className='border-none h-[1px] bg-zinc-400'/>
@@ -34,10 +38,10 @@ const Sidenav = () => {
             Website Information
             </h1>
         <lin className='hover:bg-[#6556CD] hover:text-white duration-300 rounded-lg p-5'>
-        <i class="mr-2 ri-information-2-fill"></i> About StreamX
+        <i className="mr-2 ri-information-2-fill"></i> About StreamX
             </lin>
         <lin className='hover:bg-[#6556CD] hover:text-white duration-300 rounded-lg p-5'>
-        <i class="mr-2 ri-phone-fill"></i> Contact Us
+        <i className="mr-2 ri-phone-fill"></i> Contact Us
             </lin>
         </nav>
     </div>
