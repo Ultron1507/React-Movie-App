@@ -37,7 +37,7 @@ const Topnav = () => {
         ></i>
       )}
 
-      <div className='w-[50%] max-h-[50vh] absolute bg-zinc-200 top-[90%] overflow-auto rounded'>
+      <div className='w-[50%] max-h-[50vh] absolute bg-zinc-200 top-[100%] left-[5%] overflow-auto rounded'>
         {searches?.map((s, i) => (  // Fixed: Added optional chaining (?.map)
           <div key={i}
             className="hover:text-black hover:bg-zinc-300 duration-300 font-semibold text-zinc-600 w-[100%] p-10 flex justify-start items-center border-b-2 border-zinc-100"> 
