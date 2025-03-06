@@ -1,38 +1,50 @@
-import React, { useEffect, useState } from 'react'
-import Sidenav from './templates/Sidenav';
-import Topnav from './templates/Topnav';
-import axios from '../utils/axios';
-import Header from './templates/Header';
+import React, { useEffect, useState } from "react";
+import Sidenav from "./templates/Sidenav";
+import Topnav from "./templates/Topnav";
+import axios from "../utils/axios";
+import Header from "./templates/Header";
+import Horizontalcard from "./templates/Horizontalcard";
 
 const Home = () => {
-    document.title = "Homepage";
-    const [wallpaper, setwallpaper] = useState(null);
+  const [wallpaper, setWallpaper] = useState(null);
+  const [trending, setTrending] = useState(null);
 
-    const GetHeaderWallpaper =  async () => {
+  useEffect(() => {
+    document.title = "Homepage"; // ✅ Sets the document title
+
+    // ✅ Fetches trending data and sets wallpaper
+    const fetchData = async () => {
       try {
         const { data } = await axios.get(`/trending/all/day`);
-       let randomdata = data.results[(Math.random() * data.results.length).toFixed()];
-        setwallpaper(randomdata);
+        setTrending(data.results);
+
+        // ✅ Select a random item from the results for wallpaper
+        if (data.results.length > 0) {
+          let randomIndex = Math.floor(Math.random() * data.results.length);
+          setWallpaper(data.results[randomIndex]);
+        }
       } catch (error) {
-        console.log("Error: ", error);
+        console.error("Error fetching data: ", error);
       }
     };
 
-      useEffect(() => {
-         !wallpaper && GetHeaderWallpaper();
-      }, [])
+    fetchData();
+  }, []); // ✅ Runs only once when component mounts
 
-
-  return (
+  return wallpaper && trending ? (
     <>
-    <Sidenav/>
-    <div className='w-[80%] h-full'>
-    <Topnav/>
-    <Header data = {wallpaper}/>
-    </div>
-    
+      <Sidenav />
+      <div className="w-[80%] h-full overflow-auto overflow-x-hidden">
+        <Topnav />
+        <Header data={wallpaper} />
+        <Horizontalcard data ={trending} />
+      </div>
     </>
-  )
-}
+  ) : (
+    <div className="flex items-center justify-center h-screen text-white">
+      Loading...
+    </div>
+  );
+};
 
-export default Home
+export default Home;
