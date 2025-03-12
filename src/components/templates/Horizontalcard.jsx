@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Dropdown from "./Dropdown"; // ✅ Import the Dropdown component
+import Dropdown from "./Dropdown"; // ✅ Import the updated Dropdown component
 
 const Horizontalcard = ({ data = [] }) => {
   const [selectedCategory, setSelectedCategory] = useState("All");
@@ -16,8 +16,12 @@ const Horizontalcard = ({ data = [] }) => {
     <div className="w-full h-[30vh] p-6 pt-2">
       <div className="flex justify-between items-center mb-3">
         <h1 className="mt-0 text-2xl font-semibold text-zinc-400">Trending</h1>
-        {/* ✅ Pass correct props to Dropdown */}
-        <Dropdown selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory} />
+        
+        {/* ✅ Align Filter Title and Dropdown in a Row */}
+        <div className="flex items-center gap-2">
+          <span className="text-white">Filter:</span> 
+          <Dropdown selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory} />
+        </div>
       </div>
 
       {/* Scrollable container */}
