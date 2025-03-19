@@ -17,10 +17,14 @@ const Horizontalcard = ({ data = [] }) => {
       <div className="flex justify-between items-center mb-3">
         <h1 className="mt-0 text-2xl font-semibold text-zinc-400">Trending</h1>
         
-        {/* ✅ Align Filter Title and Dropdown in a Row */}
+        {/* ✅ Show Only "Filter:" and Remove "Category" Title from Dropdown */}
         <div className="flex items-center gap-2">
           <span className="text-white">Filter:</span> 
-          <Dropdown selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory} />
+          <Dropdown 
+            options={["All", "Movie", "TV"]} // ✅ Still pass the options
+            selectedCategory={selectedCategory} 
+            setSelectedCategory={setSelectedCategory} 
+          />
         </div>
       </div>
 

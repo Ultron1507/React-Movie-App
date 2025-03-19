@@ -1,70 +1,75 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import Topnav from "../templates/Topnav";
-import Dropdown from "../templates/Dropdown";
+import Topnav from "./Topnav";
+import Dropdown from "./Dropdown";
 import axios from "axios";
-import Cards from "./TempCards"; // Fixed import (capitalized)
-import Loading from "../Loading"; // Ensure this exists
+import TempCards from "./TempCards";
 
 const Trending = () => {
   const navigate = useNavigate();
   const [category, setCategory] = useState("all");
   const [duration, setDuration] = useState("day");
-  const [trending, setTrending] = useState([]);
+  const [trending, setTrending] = useState([]); 
+  const [error, setError] = useState(""); // ✅ Fix: Added error state
+  const API_KEY = "YOUR_API_KEY"; // ✅ Replace with actual TMDB API Key
+
+  const GetTrending = async () => {
+    setError(""); // Reset error before fetching
+    try {
+      const { data } = await axios.get(
+        `https://api.themoviedb.org/3/trending/${category}/${duration}?api_key=${API_KEY}`
+      );
+      setTrending(data.results);
+    } catch (err) {
+      console.log("Error fetching trending data:", err);
+      setError("Failed to load trending content. Please try again.");
+    }
+  };
 
   useEffect(() => {
-    const getTrending = async () => {
-      setLoading(true);
-      try {
-        const { data } = await axios.get(`/trending/${category}/${duration}`);
-        setTrending(data.results);
-      } catch (error) {
-        console.error("Error: ", error);
-      }
-      setLoading(false);
-    };
-
-    getTrending();
+    GetTrending();
   }, [category, duration]);
 
-  return trending ? (
-    <div className="px-[3%] w-screen h-screen bg-gray-900 text-zinc-400">
-      {/* Header Section */}
-      <div className="w-full flex justify-between items-center mb-4">
-        <div className="flex items-center gap-3">
-          <button onClick={() => navigate(-1)} className="text-zinc-400 text-3xl">
-            <i className="hover:text-[#6556CD] ri-arrow-left-circle-line"></i>
-          </button>
-          <h1 className="text-2xl font-semibold">Trending</h1>
-        </div>
+  return (
+    <div className="px-3 w-screen h-screen">
+      <div className="w-full flex items-center">
+        <h1 className="text-2xl font-semibold text-zinc-400">
+          <i
+            onClick={() => navigate(-1)}
+            className="hover:text-[#6556CD] ri-arrow-left-circle-line"
+          ></i>{" "}
+          Trending
+        </h1>
 
-        {/* Search Bar */}
-        <div className="flex-1 flex justify-center">
-          <Topnav />
-        </div>
+        <Topnav />
 
-        {/* Filter & Duration Dropdowns */}
-        <div className="flex items-center gap-4">
-          <Dropdown
-            title="Filter"
-            options={["movie", "tv", "all"]} // Fixed lowercase values
-            selected={category}
-            setSelected={setCategory}
-          />
-          <Dropdown
-            title="Duration"
-            options={["week", "day"]} // Fixed lowercase values
-            selected={duration}
-            setSelected={setDuration}
-          />
-        </div>
+        {/* ✅ Dropdown for Category */}
+        <Dropdown 
+          title="Category" 
+          options={["movie", "tv", "all"]} 
+          func={(e) => setCategory(e.target.value)}
+        />
+
+        <div className="w-[2%]"></div>
+
+        {/* ✅ Dropdown for Duration */}
+        <Dropdown 
+          title="Duration" 
+          options={["week", "day"]} 
+          func={(e) => setDuration(e.target.value)}
+        />
       </div>
 
-      {/* Loading State */}
-      <Cards data={trending} title={category} />
+      {/* ✅ Show error message if API fails */}
+      {error && <p className="text-red-500 text-center mt-5">{error}</p>}
+
+      {/* ✅ Display TempCards only if trending data exists */}
+      {trending.length > 0 ? (
+        <TempCards data={trending} />
+      ) : (
+        !error && <p className="text-center text-gray-400 mt-5">Loading trending content...</p>
+      )}
     </div>
-  ): (
-    <Loading/>
   );
 };
 
