@@ -16,7 +16,7 @@ const Trending = () => {
     const getTrending = async () => {
       setLoading(true);
       try {
-        const { data } = await axios.get(`/trending/${category.toLowerCase()}/${duration.toLowerCase()}`);
+        const { data } = await axios.get(`/trending/${category}/${duration}`);
         setTrending(data.results);
       } catch (error) {
         console.error("Error: ", error);
