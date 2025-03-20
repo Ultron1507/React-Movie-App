@@ -4,6 +4,8 @@ This is a fully functional movie and TV show app built using ReactJS, Redux, and
 
 ## Live Demo
 [React Movie App Deployment](https://react-movie-app-woad-nu.vercel.app/)
+![Screenshot (14)](https://github.com/user-attachments/assets/057b01e6-5b94-40c0-8972-dcf22d7cb1a3)
+
 
 ## Features
 - **Trending Movies & TV Shows**: Fetches daily trending content from the TMDb API.
